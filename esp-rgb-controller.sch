@@ -5,7 +5,7 @@ $Descr A 11000 8500
 encoding utf-8
 Sheet 1 1
 Title "ESP RGB Controller"
-Date "2020-10-19"
+Date "2020-10-21"
 Rev "A"
 Comp "W3AXL"
 Comment1 ""
@@ -30,7 +30,7 @@ U 1 1 5F8E100B
 P 2750 6750
 F 0 "C2" H 2838 6796 50  0000 L CNN
 F 1 "10uF" H 2838 6705 50  0000 L CNN
-F 2 "Capacitor_SMD:CP_Elec_5x5.3" H 2750 6750 50  0001 C CNN
+F 2 "Capacitor_Tantalum_SMD:CP_EIA-3528-15_AVX-H_Pad1.50x2.35mm_HandSolder" H 2750 6750 50  0001 C CNN
 F 3 "~" H 2750 6750 50  0001 C CNN
 	1    2750 6750
 	1    0    0    -1  
@@ -154,7 +154,7 @@ U 1 1 5F8E78DC
 P 4450 6600
 F 0 "L1" V 4635 6600 50  0000 C CNN
 F 1 "3.9uH" V 4544 6600 50  0000 C CNN
-F 2 "Inductor_SMD:L_Taiyo-Yuden_NR-40xx_HandSoldering" H 4450 6600 50  0001 C CNN
+F 2 "Inductor_SMD:L_Bourns-SRN6028" H 4450 6600 50  0001 C CNN
 F 3 "~" H 4450 6600 50  0001 C CNN
 	1    4450 6600
 	0    -1   -1   0   
@@ -176,7 +176,7 @@ U 1 1 5F8EE4E5
 P 4650 6950
 F 0 "C5" H 4550 7000 50  0000 R CNN
 F 1 "22uF" H 4550 6900 50  0000 R CNN
-F 2 "Capacitor_SMD:CP_Elec_4x4.5" H 4650 6950 50  0001 C CNN
+F 2 "Capacitor_Tantalum_SMD:CP_EIA-3528-15_AVX-H_Pad1.50x2.35mm_HandSolder" H 4650 6950 50  0001 C CNN
 F 3 "~" H 4650 6950 50  0001 C CNN
 	1    4650 6950
 	1    0    0    -1  
@@ -229,7 +229,7 @@ U 1 1 5F8F7EB9
 P 4850 6950
 F 0 "C6" H 4938 6996 50  0000 L CNN
 F 1 "22uF" H 4938 6905 50  0000 L CNN
-F 2 "Capacitor_SMD:CP_Elec_4x4.5" H 4850 6950 50  0001 C CNN
+F 2 "Capacitor_Tantalum_SMD:CP_EIA-3528-15_AVX-H_Pad1.50x2.35mm_HandSolder" H 4850 6950 50  0001 C CNN
 F 3 "~" H 4850 6950 50  0001 C CNN
 	1    4850 6950
 	1    0    0    -1  
@@ -250,7 +250,7 @@ Wire Wire Line
 Wire Wire Line
 	4850 6750 4850 6850
 Wire Wire Line
-	4850 6600 4850 6750
+	4850 6600 4850 6650
 Connection ~ 4850 6750
 $Comp
 L Device:Q_NMOS_GDSD Q3
@@ -521,11 +521,11 @@ F 3 "~" H 8800 4300 50  0001 C CNN
 	1    8800 4300
 	0    -1   -1   0   
 $EndComp
-Text GLabel 3100 2500 2    50   Input ~ 0
+Text GLabel 3100 4700 2    50   Input ~ 0
 R_PWM
 Text GLabel 3100 4600 2    50   Input ~ 0
 G_PWM
-Text GLabel 3100 4700 2    50   Input ~ 0
+Text GLabel 3100 2500 2    50   Input ~ 0
 B_PWM
 Wire Wire Line
 	2500 2000 2500 2100
@@ -623,43 +623,43 @@ Text GLabel 3100 3900 2    50   Input ~ 0
 $Comp
 L Connector:AVR-ISP-6 J4
 U 1 1 5FA22D35
-P 4750 4300
-F 0 "J4" H 4420 4396 50  0000 R CNN
-F 1 "AVR-ISP-6" H 4420 4305 50  0000 R CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_2x03_P2.54mm_Vertical_SMD" V 4500 4350 50  0001 C CNN
-F 3 " ~" H 3475 3750 50  0001 C CNN
-	1    4750 4300
+P 5500 4300
+F 0 "J4" H 5170 4396 50  0000 R CNN
+F 1 "AVR-ISP-6" H 5170 4305 50  0000 R CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x03_P2.54mm_Vertical_SMD" V 5250 4350 50  0001 C CNN
+F 3 " ~" H 4225 3750 50  0001 C CNN
+	1    5500 4300
 	-1   0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR017
 U 1 1 5FA23F2A
-P 4850 4700
-F 0 "#PWR017" H 4850 4450 50  0001 C CNN
-F 1 "GND" H 4855 4527 50  0001 C CNN
-F 2 "" H 4850 4700 50  0001 C CNN
-F 3 "" H 4850 4700 50  0001 C CNN
-	1    4850 4700
+P 5600 4700
+F 0 "#PWR017" H 5600 4450 50  0001 C CNN
+F 1 "GND" H 5605 4527 50  0001 C CNN
+F 2 "" H 5600 4700 50  0001 C CNN
+F 3 "" H 5600 4700 50  0001 C CNN
+	1    5600 4700
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:+3V3 #PWR016
 U 1 1 5FA245DE
-P 4850 3800
-F 0 "#PWR016" H 4850 3650 50  0001 C CNN
-F 1 "+3V3" H 4865 3973 50  0000 C CNN
-F 2 "" H 4850 3800 50  0001 C CNN
-F 3 "" H 4850 3800 50  0001 C CNN
-	1    4850 3800
+P 5600 3800
+F 0 "#PWR016" H 5600 3650 50  0001 C CNN
+F 1 "+3V3" H 5615 3973 50  0000 C CNN
+F 2 "" H 5600 3800 50  0001 C CNN
+F 3 "" H 5600 3800 50  0001 C CNN
+	1    5600 3800
 	1    0    0    -1  
 $EndComp
-Text GLabel 4350 4400 0    50   Input ~ 0
+Text GLabel 5100 4400 0    50   Input ~ 0
 ~RST
-Text GLabel 4350 4100 0    50   Input ~ 0
+Text GLabel 5100 4100 0    50   Input ~ 0
 MISO
-Text GLabel 4350 4200 0    50   Input ~ 0
+Text GLabel 5100 4200 0    50   Input ~ 0
 MOSI
-Text GLabel 4350 4300 0    50   Input ~ 0
+Text GLabel 5100 4300 0    50   Input ~ 0
 SCK
 Text GLabel 3100 2900 2    50   Input ~ 0
 SCK
@@ -673,7 +673,7 @@ U 1 1 5FA2F90E
 P 5500 6950
 F 0 "D2" V 5546 6880 50  0000 R CNN
 F 1 "PWR" V 5455 6880 50  0000 R CNN
-F 2 "LED_SMD:LED_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 5500 6950 50  0001 C CNN
+F 2 "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 5500 6950 50  0001 C CNN
 F 3 "~" V 5500 6950 50  0001 C CNN
 	1    5500 6950
 	0    -1   -1   0   
@@ -684,7 +684,7 @@ U 1 1 5FA30814
 P 3600 3100
 F 0 "D1" V 3646 3030 50  0000 R CNN
 F 1 "STAT" V 3555 3030 50  0000 R CNN
-F 2 "LED_SMD:LED_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 3600 3100 50  0001 C CNN
+F 2 "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 3600 3100 50  0001 C CNN
 F 3 "~" V 3600 3100 50  0001 C CNN
 	1    3600 3100
 	0    -1   -1   0   
@@ -760,9 +760,9 @@ Wire Wire Line
 	4350 2700 4350 2800
 Wire Wire Line
 	4350 2800 4200 2800
-Text GLabel 3100 4200 2    50   Input ~ 0
+Text GLabel 3700 4200 2    50   Input ~ 0
 MCU_TX
-Text GLabel 3100 4100 2    50   Input ~ 0
+Text GLabel 3700 4100 2    50   Input ~ 0
 MCU_RX
 Text GLabel 6450 2600 2    50   Input ~ 0
 ESP_RX
@@ -772,17 +772,6 @@ Text GLabel 3100 4300 2    50   Input ~ 0
 ESP_TX
 Text GLabel 3100 4400 2    50   Input ~ 0
 ESP_RX
-$Comp
-L Device:Jumper_NC_Small JP3
-U 1 1 5FB1D918
-P 7000 2700
-F 0 "JP3" H 7000 2912 50  0000 C CNN
-F 1 "GPIO0" H 7000 2821 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 7000 2700 50  0001 C CNN
-F 3 "~" H 7000 2700 50  0001 C CNN
-	1    7000 2700
-	1    0    0    -1  
-$EndComp
 $Comp
 L power:+3V3 #PWR023
 U 1 1 5FB1F1D5
@@ -814,4 +803,91 @@ NoConn ~ 3100 3500
 NoConn ~ 3100 3600
 NoConn ~ 3100 3700
 NoConn ~ 3100 3800
+$Comp
+L Device:R_Small R6
+U 1 1 5F92E02D
+P 7000 2700
+F 0 "R6" V 7100 2700 50  0000 C BNN
+F 1 "10k" V 7000 2700 40  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7000 2700 50  0001 C CNN
+F 3 "~" H 7000 2700 50  0001 C CNN
+	1    7000 2700
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Connector:TestPoint_Small TP2
+U 1 1 5F93AB1C
+P 3600 3950
+F 0 "TP2" H 3648 3996 50  0000 L CNN
+F 1 "MCU_TX" H 3648 3905 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 3800 3950 50  0001 C CNN
+F 3 "~" H 3800 3950 50  0001 C CNN
+	1    3600 3950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3100 4100 3500 4100
+Wire Wire Line
+	3100 4200 3600 4200
+$Comp
+L Connector:TestPoint_Small TP1
+U 1 1 5F942FFA
+P 3500 3750
+F 0 "TP1" H 3548 3796 50  0000 L CNN
+F 1 "MCU_RX" H 3548 3705 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 3700 3750 50  0001 C CNN
+F 3 "~" H 3700 3750 50  0001 C CNN
+	1    3500 3750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3600 3950 3600 4200
+Connection ~ 3600 4200
+Wire Wire Line
+	3600 4200 3700 4200
+Wire Wire Line
+	3500 3750 3500 4100
+Connection ~ 3500 4100
+Wire Wire Line
+	3500 4100 3700 4100
+$Comp
+L Connector:TestPoint_Small TP4
+U 1 1 5F95588D
+P 4950 6650
+F 0 "TP4" H 4998 6696 50  0000 L CNN
+F 1 "3V3" H 4998 6605 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 5150 6650 50  0001 C CNN
+F 3 "~" H 5150 6650 50  0001 C CNN
+	1    4950 6650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4950 6650 4850 6650
+Connection ~ 4850 6650
+Wire Wire Line
+	4850 6650 4850 6750
+$Comp
+L Connector:TestPoint_Small TP3
+U 1 1 5F95D837
+P 4000 7000
+F 0 "TP3" H 4048 7046 50  0000 L CNN
+F 1 "GND" H 4048 6955 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 4200 7000 50  0001 C CNN
+F 3 "~" H 4200 7000 50  0001 C CNN
+	1    4000 7000
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR011
+U 1 1 5F96370C
+P 4000 7050
+F 0 "#PWR011" H 4000 6800 50  0001 C CNN
+F 1 "GND" H 4005 6877 50  0001 C CNN
+F 2 "" H 4000 7050 50  0001 C CNN
+F 3 "" H 4000 7050 50  0001 C CNN
+	1    4000 7050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4000 7000 4000 7050
 $EndSCHEMATC
