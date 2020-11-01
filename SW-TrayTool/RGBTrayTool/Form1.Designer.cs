@@ -42,6 +42,8 @@
             this.prstIntensity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label3 = new System.Windows.Forms.Label();
             this.fldCurControllerIP = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.fldCurControllerDesc = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -50,8 +52,9 @@
             this.fldControllerList.FormattingEnabled = true;
             this.fldControllerList.Location = new System.Drawing.Point(12, 29);
             this.fldControllerList.Name = "fldControllerList";
-            this.fldControllerList.Size = new System.Drawing.Size(225, 95);
+            this.fldControllerList.Size = new System.Drawing.Size(148, 95);
             this.fldControllerList.TabIndex = 0;
+            this.fldControllerList.SelectedIndexChanged += new System.EventHandler(this.fldControllerList_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -66,7 +69,7 @@
             // 
             this.btnAddController.Location = new System.Drawing.Point(12, 130);
             this.btnAddController.Name = "btnAddController";
-            this.btnAddController.Size = new System.Drawing.Size(70, 23);
+            this.btnAddController.Size = new System.Drawing.Size(40, 23);
             this.btnAddController.TabIndex = 2;
             this.btnAddController.Text = "Add";
             this.btnAddController.UseVisualStyleBackColor = true;
@@ -74,21 +77,22 @@
             // 
             // btnEditController
             // 
-            this.btnEditController.Location = new System.Drawing.Point(90, 130);
+            this.btnEditController.Location = new System.Drawing.Point(58, 130);
             this.btnEditController.Name = "btnEditController";
-            this.btnEditController.Size = new System.Drawing.Size(70, 23);
+            this.btnEditController.Size = new System.Drawing.Size(40, 23);
             this.btnEditController.TabIndex = 3;
             this.btnEditController.Text = "Edit";
             this.btnEditController.UseVisualStyleBackColor = true;
             // 
             // btnDeleteController
             // 
-            this.btnDeleteController.Location = new System.Drawing.Point(167, 130);
+            this.btnDeleteController.Location = new System.Drawing.Point(104, 130);
             this.btnDeleteController.Name = "btnDeleteController";
-            this.btnDeleteController.Size = new System.Drawing.Size(70, 23);
+            this.btnDeleteController.Size = new System.Drawing.Size(56, 23);
             this.btnDeleteController.TabIndex = 4;
             this.btnDeleteController.Text = "Delete";
             this.btnDeleteController.UseVisualStyleBackColor = true;
+            this.btnDeleteController.Click += new System.EventHandler(this.btnDeleteController_Click);
             // 
             // label2
             // 
@@ -156,7 +160,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(244, 29);
+            this.label3.Location = new System.Drawing.Point(166, 29);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(58, 13);
             this.label3.TabIndex = 7;
@@ -165,17 +169,38 @@
             // fldCurControllerIP
             // 
             this.fldCurControllerIP.AutoSize = true;
-            this.fldCurControllerIP.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fldCurControllerIP.Location = new System.Drawing.Point(247, 46);
+            this.fldCurControllerIP.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fldCurControllerIP.Location = new System.Drawing.Point(167, 46);
             this.fldCurControllerIP.Name = "fldCurControllerIP";
-            this.fldCurControllerIP.Size = new System.Drawing.Size(0, 14);
+            this.fldCurControllerIP.Size = new System.Drawing.Size(144, 19);
             this.fldCurControllerIP.TabIndex = 8;
+            this.fldCurControllerIP.Text = "255.255.255.255";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(167, 69);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(60, 13);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "Description";
+            // 
+            // fldCurControllerDesc
+            // 
+            this.fldCurControllerDesc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fldCurControllerDesc.Location = new System.Drawing.Point(167, 86);
+            this.fldCurControllerDesc.Name = "fldCurControllerDesc";
+            this.fldCurControllerDesc.Size = new System.Drawing.Size(165, 67);
+            this.fldCurControllerDesc.TabIndex = 10;
+            this.fldCurControllerDesc.Text = "Empty Controller Description";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(344, 441);
+            this.Controls.Add(this.fldCurControllerDesc);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.fldCurControllerIP);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.dataGridView1);
@@ -210,6 +235,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn prstIntensity;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label fldCurControllerIP;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label fldCurControllerDesc;
     }
 }
 
