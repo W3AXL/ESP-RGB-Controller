@@ -78,6 +78,8 @@ namespace RGBTrayTool
             string rgbStr = newRed.ToString() + "," + newGreen.ToString() + "," + newBlue.ToString();
             Debug.WriteLine("sending RGB command: " + rgbStr);
             string requestAddr = "http://" + controller.address + "?rgb=" + rgbStr;
+            // Set HTTP progress to 75%
+            fldHttpProgress.Value = 75;
             try
             {
                 var result = ctrlClient.GetAsync(requestAddr).Result;
@@ -89,6 +91,8 @@ namespace RGBTrayTool
                 else
                 {
                     Debug.WriteLine("GET request OK");
+                    // Progress bar done
+                    fldHttpProgress.Value = 100;
                     return true;
                 }
             }
@@ -174,6 +178,46 @@ namespace RGBTrayTool
         }
 
         /// <summary>
+        /// updates the tray menu with available controllers and their presets
+        /// </summary>
+        private void updateTrayMenu()
+        {
+            // prepare a list of presets for the submenus
+            ToolStripMenuItem[] presetMenus = new ToolStripMenuItem[formConfig.presets.Count];
+            int i = 0;
+            foreach (Preset prst in formConfig.presets)
+            {
+                ToolStripMenuItem prstItem = new ToolStripMenuItem();
+                prstItem.Text = prst.name;
+                presetMenus[i] = prstItem;
+                i++;
+            }
+            // add the controllers to the menu
+            foreach (Controller cntrl in formConfig.controllers)
+            {
+                ToolStripMenuItem item = new ToolStripMenuItem();
+                item.Text = cntrl.name;
+                item.Name = cntrl.name;
+                item.DropDownItems.AddRange(presetMenus);
+                item.DropDownItemClicked += new ToolStripItemClickedEventHandler(trayPresetClickHandler);
+                trayContextMenu.Items.Insert(0,item);
+            }
+        }
+
+        /// <summary>
+        /// handler for tray preset clicks
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void trayPresetClickHandler(object sender, ToolStripItemClickedEventArgs e)
+        {
+            ToolStripItem clickedItem = e.ClickedItem;
+            ToolStripItem parentItem = clickedItem.OwnerItem;
+            Debug.WriteLine("clicked tray item: " + clickedItem.ToString() + " with owner: " + parentItem.ToString());
+            activatePreset(parentItem.ToString(), clickedItem.ToString());
+        }
+
+        /// <summary>
         /// Updates list of controllers in form
         /// </summary>
         private void updateControllerList()
@@ -225,6 +269,7 @@ namespace RGBTrayTool
         {
             int controllerIdx = fldControllerList.SelectedIndex;
             int presetIdx = formConfig.controllers[controllerIdx].activePreset;
+            Debug.WriteLine("controller " + controllerIdx.ToString() + " has active preset " + presetIdx.ToString());
             // -1 is no preset active
             if (presetIdx < 0) {
                 // clear all checkboxes
@@ -234,6 +279,13 @@ namespace RGBTrayTool
                 }
                 // exit
                 return; 
+            }
+            // check that preset actually exists
+            if (presetIdx > formConfig.presets.Count - 1)
+            {
+                Debug.WriteLine("controller's active preset no longer exists, setting to -1");
+                formConfig.controllers[controllerIdx].activePreset = -1;
+                return;
             }
             // Check the box by the preset that's active
             fldPresets.Rows[presetIdx].Cells[0].Value = true;
@@ -248,38 +300,36 @@ namespace RGBTrayTool
         }
 
         /// <summary>
-        /// Activates preset for the currently selected controller.
+        /// Activates preset for the controller specified.
         /// </summary>
         /// Does not change the value for the checkbox in the table (that would make an inifnite loop, I think)
         /// <param name="presetRow">the preset row to activate</param>
-        private void activatePreset(int presetRow)
+        private void activatePreset(string controllerName, string presetName)
         {
-            int ctrlIdx = fldControllerList.SelectedIndex;
-            // Make sure we have a controller selected
-            if ( (ctrlIdx < 0) || (ctrlIdx > formConfig.controllers.Count -1) )
+            // find the index of the passed controller name
+            int ctrlIdx = formConfig.controllers.IndexOf(formConfig.controllers.Find(x => x.name == controllerName));
+            // find the index of the passed preset name
+            int presetIdx = formConfig.presets.IndexOf(formConfig.presets.Find(x => x.name == presetName));
+            // Set HTTP progress to 50%
+            fldHttpProgress.Value = 50;
+            // clear checkboxes from all the other rows
+            foreach (DataGridViewRow row in fldPresets.Rows)
             {
-                MessageBox.Show("No controller selected", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                // clear the checkbox
-                fldPresets.Rows[presetRow].Cells[0].Value = false;
-            } else
-            {
-                // clear checkboxes from all the other rows
-                foreach (DataGridViewRow row in fldPresets.Rows)
+                if (row.Index != presetIdx)
                 {
-                    if (row.Index != presetRow)
-                    {
-                        row.Cells[0].Value = false;
-                    }
-                }
-                Debug.WriteLine("Activating preset " + presetRow.ToString() + " for controller " + fldControllerList.SelectedIndex.ToString());
-                formConfig.controllers[ctrlIdx].activePreset = presetRow;
-                if (!sendRGBCmd(formConfig.controllers[ctrlIdx], formConfig.presets[presetRow]))
-                {
-                    MessageBox.Show("HTTP error on sending GET request", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    // clear the checkbox
-                    fldPresets.Rows[presetRow].Cells[0].Value = false;
+                    row.Cells[0].Value = false;
                 }
             }
+            Debug.WriteLine("Activating preset " + presetIdx.ToString() + " for controller " + fldControllerList.SelectedIndex.ToString());
+            formConfig.controllers[ctrlIdx].activePreset = presetIdx;
+            if (!sendRGBCmd(formConfig.controllers[ctrlIdx], formConfig.presets[presetIdx]))
+            {
+                MessageBox.Show("HTTP error on sending GET request", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // clear the checkbox
+                fldPresets.Rows[presetIdx].Cells[0].Value = false;
+            }
+            // Clear loading bar
+            fldHttpProgress.Value = 0;
         }
             
         public Form1()
@@ -293,6 +343,7 @@ namespace RGBTrayTool
             updateControllerList();
             updatePresetList();
             updateSelectedController();
+            updateTrayMenu();
         }
 
         /// <summary>
@@ -313,7 +364,7 @@ namespace RGBTrayTool
                     newController.name = addDialog.controllerName;
                     newController.address = addDialog.controllerAddr;
                     newController.desc = addDialog.controllerDesc;
-                    newController.activePreset = 0;
+                    newController.activePreset = -1;
                     Debug.WriteLine("Adding new controller from dialog");
                     Debug.Print("Adding item: ");
                     Debug.Print(newController.name);
@@ -383,7 +434,7 @@ namespace RGBTrayTool
             {
                 Debug.WriteLine("value is empty, not valid");
                 fldPresets.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = 0;
-                //e.Cancel = true;
+                e.Cancel = true;
                 return;
             }
             // Make sure cell is valid 0-255 range
@@ -391,7 +442,7 @@ namespace RGBTrayTool
                 Debug.WriteLine("value is outside 0-255, not valid");
                 MessageBox.Show("Value cannot be outside range: 0-255", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 fldPresets.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = 0;
-                //e.Cancel = true;
+                e.Cancel = true;
                 return;
             }
         }
@@ -425,9 +476,24 @@ namespace RGBTrayTool
             if (e.ColumnIndex == 0)
             {
                 // check if the box has been checked
-                if (Convert.ToBoolean(fldPresets.Rows[e.RowIndex].Cells[e.ColumnIndex].Value))
+                int presetIdx = e.RowIndex;
+                if (Convert.ToBoolean(fldPresets.Rows[presetIdx].Cells[e.ColumnIndex].Value))
                 {
-                    activatePreset(e.RowIndex);
+                    // Make sure we had a controller selected in the controller list
+                    int ctrlIdx = fldControllerList.SelectedIndex;
+                    if ((ctrlIdx < 0) || (ctrlIdx > formConfig.controllers.Count - 1))
+                    {
+                        MessageBox.Show("No controller selected", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        // clear the checkbox
+                        fldPresets.Rows[presetIdx].Cells[0].Value = false;
+                    }
+                    else
+                    {
+                        // Set progress bar to 25%
+                        fldHttpProgress.Value = 25;
+                        // Acitvate the preset
+                        activatePreset(formConfig.controllers[ctrlIdx].name, formConfig.presets[presetIdx].name);
+                    }
                 }
             } 
             else
@@ -446,7 +512,7 @@ namespace RGBTrayTool
                     Preset newPreset = new Preset();
                     formConfig.presets.Add(newPreset);
                 }
-                Debug.WriteLine("updating preset");
+                Debug.WriteLine("updating preset cell with value: " + newData.ToString());
                 // Figure out which property we need to update
                 switch (e.ColumnIndex)
                 {
@@ -515,6 +581,52 @@ namespace RGBTrayTool
             {
                 fldPresets.EndEdit();
             }
+        }
+
+        /// <summary>
+        /// Hide the main taskbar icon when we minimize
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            if (this.WindowState == FormWindowState.Minimized)
+            {
+                Hide();
+                trayIcon.Visible = true;
+            }
+        }
+
+        /// <summary>
+        /// Tray Icon Double-Click Maximizes Window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void trayIcon_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            Show();
+            this.WindowState = FormWindowState.Normal;
+        }
+
+        /// <summary>
+        /// Tray Menu Close Button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void quitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        /// <summary>
+        /// Handler for tray items
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void trayContextMenu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            ToolStripItem item = e.ClickedItem;
+            Debug.WriteLine("tray item clicked: " + item.ToString());
         }
     }
 }

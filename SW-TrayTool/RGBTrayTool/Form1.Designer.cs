@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.fldControllerList = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnAddController = new System.Windows.Forms.Button();
@@ -48,7 +49,11 @@
             this.fldCurControllerDesc = new System.Windows.Forms.Label();
             this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.btnAddPreset = new System.Windows.Forms.Button();
+            this.fldHttpProgress = new System.Windows.Forms.ProgressBar();
+            this.trayContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.fldPresets)).BeginInit();
+            this.trayContextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // fldControllerList
@@ -217,8 +222,12 @@
             // 
             // trayIcon
             // 
+            this.trayIcon.BalloonTipText = "RGBTrayTool";
+            this.trayIcon.ContextMenuStrip = this.trayContextMenu;
+            this.trayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("trayIcon.Icon")));
             this.trayIcon.Text = "RGBTrayTool";
             this.trayIcon.Visible = true;
+            this.trayIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.trayIcon_MouseDoubleClick);
             // 
             // btnAddPreset
             // 
@@ -230,11 +239,34 @@
             this.btnAddPreset.UseVisualStyleBackColor = true;
             this.btnAddPreset.Click += new System.EventHandler(this.btnAddPreset_Click);
             // 
+            // fldHttpProgress
+            // 
+            this.fldHttpProgress.Location = new System.Drawing.Point(232, 438);
+            this.fldHttpProgress.Name = "fldHttpProgress";
+            this.fldHttpProgress.Size = new System.Drawing.Size(100, 23);
+            this.fldHttpProgress.TabIndex = 12;
+            // 
+            // trayContextMenu
+            // 
+            this.trayContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.quitToolStripMenuItem});
+            this.trayContextMenu.Name = "trayContextMenu";
+            this.trayContextMenu.Size = new System.Drawing.Size(181, 48);
+            this.trayContextMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.trayContextMenu_ItemClicked);
+            // 
+            // quitToolStripMenuItem
+            // 
+            this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
+            this.quitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.quitToolStripMenuItem.Text = "Quit";
+            this.quitToolStripMenuItem.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(344, 473);
+            this.Controls.Add(this.fldHttpProgress);
             this.Controls.Add(this.btnAddPreset);
             this.Controls.Add(this.fldCurControllerDesc);
             this.Controls.Add(this.label4);
@@ -247,10 +279,13 @@
             this.Controls.Add(this.btnAddController);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.fldControllerList);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "RGB Controller";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.Resize += new System.EventHandler(this.Form1_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.fldPresets)).EndInit();
+            this.trayContextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -277,6 +312,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn prstBlue;
         private System.Windows.Forms.DataGridViewTextBoxColumn prstIntensity;
         private System.Windows.Forms.Button btnAddPreset;
+        private System.Windows.Forms.ProgressBar fldHttpProgress;
+        private System.Windows.Forms.ContextMenuStrip trayContextMenu;
+        private System.Windows.Forms.ToolStripMenuItem quitToolStripMenuItem;
     }
 }
 
