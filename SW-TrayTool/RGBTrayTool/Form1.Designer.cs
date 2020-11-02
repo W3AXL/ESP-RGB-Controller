@@ -48,10 +48,10 @@
             this.label4 = new System.Windows.Forms.Label();
             this.fldCurControllerDesc = new System.Windows.Forms.Label();
             this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
-            this.btnAddPreset = new System.Windows.Forms.Button();
-            this.fldHttpProgress = new System.Windows.Forms.ProgressBar();
             this.trayContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnAddPreset = new System.Windows.Forms.Button();
+            this.fldHttpProgress = new System.Windows.Forms.ProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.fldPresets)).BeginInit();
             this.trayContextMenu.SuspendLayout();
             this.SuspendLayout();
@@ -229,6 +229,21 @@
             this.trayIcon.Visible = true;
             this.trayIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.trayIcon_MouseDoubleClick);
             // 
+            // trayContextMenu
+            // 
+            this.trayContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.quitToolStripMenuItem});
+            this.trayContextMenu.Name = "trayContextMenu";
+            this.trayContextMenu.Size = new System.Drawing.Size(98, 26);
+            this.trayContextMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.trayContextMenu_ItemClicked);
+            // 
+            // quitToolStripMenuItem
+            // 
+            this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
+            this.quitToolStripMenuItem.Size = new System.Drawing.Size(97, 22);
+            this.quitToolStripMenuItem.Text = "Quit";
+            this.quitToolStripMenuItem.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
+            // 
             // btnAddPreset
             // 
             this.btnAddPreset.Location = new System.Drawing.Point(12, 438);
@@ -245,21 +260,6 @@
             this.fldHttpProgress.Name = "fldHttpProgress";
             this.fldHttpProgress.Size = new System.Drawing.Size(100, 23);
             this.fldHttpProgress.TabIndex = 12;
-            // 
-            // trayContextMenu
-            // 
-            this.trayContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.quitToolStripMenuItem});
-            this.trayContextMenu.Name = "trayContextMenu";
-            this.trayContextMenu.Size = new System.Drawing.Size(181, 48);
-            this.trayContextMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.trayContextMenu_ItemClicked);
-            // 
-            // quitToolStripMenuItem
-            // 
-            this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
-            this.quitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.quitToolStripMenuItem.Text = "Quit";
-            this.quitToolStripMenuItem.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
             // 
             // Form1
             // 
