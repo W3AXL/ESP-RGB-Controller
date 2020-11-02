@@ -28,13 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.fldControllerList = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnAddController = new System.Windows.Forms.Button();
             this.btnEditController = new System.Windows.Forms.Button();
             this.btnDeleteController = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.fldPresets = new System.Windows.Forms.DataGridView();
+            this.prstActive = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.prstName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.prstRed = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.prstGreen = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -44,7 +46,9 @@
             this.fldCurControllerIP = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.fldCurControllerDesc = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.btnAddPreset = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.fldPresets)).BeginInit();
             this.SuspendLayout();
             // 
             // fldControllerList
@@ -99,23 +103,40 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(12, 160);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(69, 13);
+            this.label2.Size = new System.Drawing.Size(88, 13);
             this.label2.TabIndex = 5;
-            this.label2.Text = "Preset Colors";
+            this.label2.Text = "Preset Colors List";
             // 
-            // dataGridView1
+            // fldPresets
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.fldPresets.AllowUserToAddRows = false;
+            this.fldPresets.AllowUserToResizeColumns = false;
+            this.fldPresets.AllowUserToResizeRows = false;
+            this.fldPresets.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.fldPresets.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.prstActive,
             this.prstName,
             this.prstRed,
             this.prstGreen,
             this.prstBlue,
             this.prstIntensity});
-            this.dataGridView1.Location = new System.Drawing.Point(12, 177);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(320, 252);
-            this.dataGridView1.TabIndex = 6;
+            this.fldPresets.Location = new System.Drawing.Point(12, 177);
+            this.fldPresets.Name = "fldPresets";
+            this.fldPresets.RowHeadersVisible = false;
+            this.fldPresets.Size = new System.Drawing.Size(320, 252);
+            this.fldPresets.TabIndex = 6;
+            this.fldPresets.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.fldPresets_CellEndEdit);
+            this.fldPresets.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.fldPresets_CellMouseUp);
+            this.fldPresets.CellValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.fldPresets_CellValidated);
+            this.fldPresets.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.fldPresets_CellValidating);
+            this.fldPresets.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.fldPresets_CellValueChanged);
+            this.fldPresets.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.fldPresets_DefaultValuesNeeded);
+            // 
+            // prstActive
+            // 
+            this.prstActive.HeaderText = "";
+            this.prstActive.Name = "prstActive";
+            this.prstActive.Width = 25;
             // 
             // prstName
             // 
@@ -123,7 +144,7 @@
             this.prstName.MaxInputLength = 16;
             this.prstName.Name = "prstName";
             this.prstName.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.prstName.Width = 107;
+            this.prstName.Width = 110;
             // 
             // prstRed
             // 
@@ -155,7 +176,7 @@
             this.prstIntensity.MaxInputLength = 3;
             this.prstIntensity.Name = "prstIntensity";
             this.prstIntensity.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.prstIntensity.Width = 50;
+            this.prstIntensity.Width = 60;
             // 
             // label3
             // 
@@ -194,16 +215,32 @@
             this.fldCurControllerDesc.TabIndex = 10;
             this.fldCurControllerDesc.Text = "Empty Controller Description";
             // 
+            // trayIcon
+            // 
+            this.trayIcon.Text = "RGBTrayTool";
+            this.trayIcon.Visible = true;
+            // 
+            // btnAddPreset
+            // 
+            this.btnAddPreset.Location = new System.Drawing.Point(12, 438);
+            this.btnAddPreset.Name = "btnAddPreset";
+            this.btnAddPreset.Size = new System.Drawing.Size(75, 23);
+            this.btnAddPreset.TabIndex = 11;
+            this.btnAddPreset.Text = "Add Preset";
+            this.btnAddPreset.UseVisualStyleBackColor = true;
+            this.btnAddPreset.Click += new System.EventHandler(this.btnAddPreset_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(344, 441);
+            this.ClientSize = new System.Drawing.Size(344, 473);
+            this.Controls.Add(this.btnAddPreset);
             this.Controls.Add(this.fldCurControllerDesc);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.fldCurControllerIP);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.fldPresets);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnDeleteController);
             this.Controls.Add(this.btnEditController);
@@ -213,7 +250,7 @@
             this.Name = "Form1";
             this.Text = "RGB Controller";
             this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fldPresets)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -227,16 +264,19 @@
         private System.Windows.Forms.Button btnEditController;
         private System.Windows.Forms.Button btnDeleteController;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView fldPresets;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label fldCurControllerIP;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label fldCurControllerDesc;
+        private System.Windows.Forms.NotifyIcon trayIcon;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn prstActive;
         private System.Windows.Forms.DataGridViewTextBoxColumn prstName;
         private System.Windows.Forms.DataGridViewTextBoxColumn prstRed;
         private System.Windows.Forms.DataGridViewTextBoxColumn prstGreen;
         private System.Windows.Forms.DataGridViewTextBoxColumn prstBlue;
         private System.Windows.Forms.DataGridViewTextBoxColumn prstIntensity;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label fldCurControllerIP;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label fldCurControllerDesc;
+        private System.Windows.Forms.Button btnAddPreset;
     }
 }
 
