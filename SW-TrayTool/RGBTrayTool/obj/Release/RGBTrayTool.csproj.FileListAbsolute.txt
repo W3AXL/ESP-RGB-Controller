@@ -1,0 +1,14 @@
+H:\Documents\GitHub\ESP-RGB-Controller\SW-TrayTool\RGBTrayTool\bin\Release\RGBTrayTool.exe.config
+H:\Documents\GitHub\ESP-RGB-Controller\SW-TrayTool\RGBTrayTool\bin\Release\RGBTrayTool.exe
+H:\Documents\GitHub\ESP-RGB-Controller\SW-TrayTool\RGBTrayTool\bin\Release\RGBTrayTool.pdb
+H:\Documents\GitHub\ESP-RGB-Controller\SW-TrayTool\RGBTrayTool\bin\Release\Newtonsoft.Json.dll
+H:\Documents\GitHub\ESP-RGB-Controller\SW-TrayTool\RGBTrayTool\bin\Release\Newtonsoft.Json.xml
+H:\Documents\GitHub\ESP-RGB-Controller\SW-TrayTool\RGBTrayTool\obj\Release\RGBTrayTool.AddControllerDialog.resources
+H:\Documents\GitHub\ESP-RGB-Controller\SW-TrayTool\RGBTrayTool\obj\Release\RGBTrayTool.Form1.resources
+H:\Documents\GitHub\ESP-RGB-Controller\SW-TrayTool\RGBTrayTool\obj\Release\RGBTrayTool.Properties.Resources.resources
+H:\Documents\GitHub\ESP-RGB-Controller\SW-TrayTool\RGBTrayTool\obj\Release\RGBTrayTool.csproj.GenerateResource.cache
+H:\Documents\GitHub\ESP-RGB-Controller\SW-TrayTool\RGBTrayTool\obj\Release\RGBTrayTool.csproj.CoreCompileInputs.cache
+H:\Documents\GitHub\ESP-RGB-Controller\SW-TrayTool\RGBTrayTool\obj\Release\RGBTrayTool.csproj.CopyComplete
+H:\Documents\GitHub\ESP-RGB-Controller\SW-TrayTool\RGBTrayTool\obj\Release\RGBTrayTool.exe
+H:\Documents\GitHub\ESP-RGB-Controller\SW-TrayTool\RGBTrayTool\obj\Release\RGBTrayTool.pdb
+H:\Documents\GitHub\ESP-RGB-Controller\SW-TrayTool\RGBTrayTool\obj\Release\RGBTrayTool.csprojAssemblyReference.cache

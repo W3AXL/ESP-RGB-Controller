@@ -182,6 +182,11 @@ namespace RGBTrayTool
         /// </summary>
         private void updateTrayMenu()
         {
+            // Clear the current tray menu except for quit
+            for (int j = 0; j < trayContextMenu.Items.Count - 1; j++)
+            {
+                trayContextMenu.Items.RemoveAt(j);
+            }
             // prepare a list of presets for the submenus
             ToolStripMenuItem[] presetMenus = new ToolStripMenuItem[formConfig.presets.Count];
             int i = 0;
@@ -533,6 +538,7 @@ namespace RGBTrayTool
                         break;
                 }
                 saveConfig();
+                updateTrayMenu();
             }
         }
 
